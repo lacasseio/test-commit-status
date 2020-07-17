@@ -8,3 +8,18 @@
  */
 
 rootProject.name = 'commit-status'
+
+plugins.withId('com.gradle.enterprise') {
+	gradleEnterprise {
+		buildScan {
+			termsOfServiceUrl = "https://gradle.com/terms-of-service"
+			termsOfServiceAgree = "yes"
+
+			obfuscation {
+				username { name -> 'super-human' }
+				hostname { host -> 'somewhere' }
+				ipAddresses { addresses -> addresses.collect { '1.2.3.4' } }
+			}
+		}
+	}
+}

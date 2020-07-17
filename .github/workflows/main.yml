@@ -13,7 +13,7 @@ jobs:
             -   name: Build all code
                 uses: eskatos/gradle-command-action@v1
                 with:
-                    arguments: assemble
+                    arguments: assemble --scan
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                     CI: true
