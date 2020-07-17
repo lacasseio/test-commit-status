@@ -1,0 +1,31 @@
+name: CI
+
+on: push
+
+jobs:
+    assemble:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: actions/setup-java@v1
+                with:
+                    java-version: '8'
+            -   name: Build all code
+                uses: eskatos/gradle-command-action@v1
+                with:
+                    arguments: assemble
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    CI: true
+            -  name: Post status
+               run: |
+                 curl --request POST \
+                 --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+                 --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                 --header "Accept: application/vnd.github.v3+json" \
+                 --data '{
+                   "state":"success",
+                   "target_url": "${{ steps.gradle.outputs.build-scan-url }}",
+                   "description": "Some description about this status",
+                   "context": ":platformNative:check"
+                    }'
