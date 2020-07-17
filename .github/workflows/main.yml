@@ -17,6 +17,7 @@ jobs:
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                     CI: true
+                id: gradle
             -  name: Post status
                run: |
                  curl --request POST \
