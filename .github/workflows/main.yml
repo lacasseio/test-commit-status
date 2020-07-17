@@ -19,14 +19,14 @@ jobs:
                     CI: true
                 id: gradle
             -  name: Post status
+               if: ${{ always() }}
                run: |
                  curl --request POST \
                  --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
                  --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
                  --header "Accept: application/vnd.github.v3+json" \
                  --data '{
-                   "state":"success",
+                   "state":"${{ steps.gradle.outcome }}",
                    "target_url": "${{ steps.gradle.outputs.build-scan-url }}",
-                   "description": "Some description about this status",
                    "context": ":platformNative:check"
                     }'
