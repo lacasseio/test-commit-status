@@ -22,7 +22,7 @@ jobs:
                uses: docker://curlimages/curl:latest
                if: ${{ always() }}
                with:
-                 args: --request POST --url "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
+                 args: --silent --show-error --fail --request POST --url "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
 
                  #--header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --header "Accept: application/vnd.github.v3+json"
 
