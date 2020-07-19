@@ -19,10 +19,9 @@ jobs:
                     CI: true
                 id: gradle
             -  name: Post status
-               uses: docker://curlimages/curl:latest
                if: ${{ always() }}
-               with:
-                 args: |
+               run: |
+                    docker run --rm curlimages/curl:latest \
                     --verbose \
                     --request POST \
                     --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
