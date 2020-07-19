@@ -23,7 +23,7 @@ jobs:
                if: ${{ always() }}
                with:
                  args: |
-                    --silent --show-error --fail --request POST --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
+                    --silent --show-error --fail --request POST --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --header "Accept: application/vnd.github.v3+json" --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
 
                  #--header "Accept: application/vnd.github.v3+json"
 
