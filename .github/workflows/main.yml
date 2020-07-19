@@ -22,13 +22,15 @@ jobs:
                if: ${{ always() }}
                run: |
                     docker run --rm curlimages/curl:latest \
-                    --verbose \
+                    --silent \
+                    --show-error \
+                    --fail \
                     --request POST \
                     --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
                     --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
                     --header "Accept: application/vnd.github.v3+json" \
-                    --data "{ \"state\":\"${{ steps.gradle.outcome }}\", \"target_url\": \"${{ steps.gradle.outputs.build-scan-url }}\", \"context\": \":platformNative:check\" }"
-
-                 #--header "Accept: application/vnd.github.v3+json"
-
-                 #--data '{ "state":"${{ steps.gradle.outcome }}", "target_url": "${{ steps.gradle.outputs.build-scan-url }}", "context": ":platformNative:check" }'
+                    --data '{
+                      "state": "${{ steps.gradle.outcome }}",
+                      "target_url": "${{ steps.gradle.outputs.build-scan-url }}",
+                      "context": ":platformNative:check"
+                    }'
