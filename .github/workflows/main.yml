@@ -23,7 +23,14 @@ jobs:
                if: ${{ always() }}
                with:
                  args: |
-                    --silent --show-error --fail --request POST --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --header "Accept: application/vnd.github.v3+json" --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
+                    --silent \
+                    --show-error \
+                    --fail
+                    --request POST \
+                    --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+                    --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                    --header "Accept: application/vnd.github.v3+json" \
+                    --data '{ "state":"${{ steps.gradle.outcome }}", "target_url": "${{ steps.gradle.outputs.build-scan-url }}", "context": ":platformNative:check" }'
 
                  #--header "Accept: application/vnd.github.v3+json"
 
