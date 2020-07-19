@@ -19,9 +19,10 @@ jobs:
                     CI: true
                 id: gradle
             -  name: Post status
+               container: curlimages/curl:latest
                if: ${{ always() }}
                run: |
-                 curl --request POST \
+                 --request POST \
                  --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
                  --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
                  --header "Accept: application/vnd.github.v3+json" \
