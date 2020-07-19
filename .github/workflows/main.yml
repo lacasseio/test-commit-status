@@ -22,7 +22,7 @@ jobs:
                if: ${{ always() }}
                shell: bash
                run: |
-                    docker run --rm curlimages/curl:latest \
+                    curl \
                     --silent \
                     --show-error \
                     --fail \
