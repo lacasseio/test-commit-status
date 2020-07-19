@@ -19,7 +19,7 @@ jobs:
                     CI: true
                 id: gradle
             -  name: Post status
-               container: curlimages/curl:latest
+               uses: docker://curlimages/curl:latest
                if: ${{ always() }}
                run: |
                  --request POST \
