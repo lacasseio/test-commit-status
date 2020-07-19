@@ -23,9 +23,6 @@ jobs:
                if: ${{ always() }}
                with:
                  args: |
-                    --silent \
-                    --show-error \
-                    --fail \
                     --request POST \
                     --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
                     --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
